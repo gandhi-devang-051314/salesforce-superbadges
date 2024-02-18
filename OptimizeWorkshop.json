@@ -1,0 +1,70 @@
+{
+    "graphs": [
+        {
+            "graphId": "1",
+            "compositeRequest": [
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/Contact/",
+                    "body" : {
+                        "FirstName" : "Emily",
+                        "LastName" : "Cloudshine"
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_contact"
+                },
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/Opportunity/",
+                    "body" : {
+                        "Name" : "Advanced Training",
+                        "StageName" : "Prospecting",
+                        "CloseDate" : "2024-02-12"
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_opp"
+                },
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/OpportunityContactRole/",
+                    "body" : {
+                        "OpportunityId" : "@{ref_id_opp.id}",
+                        "ContactId" : "@{ref_id_contact.id}",
+                        "IsPrimary" : true
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_contact_opp"
+                },
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/Task/",
+                    "body" : {
+                        "Subject" : "Task Subject",
+                        "Priority" : "High",
+                        "WhoId": "@{ref_id_contact.id}",
+                        "WhatId": "@{ref_id_opp.id}"
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_task_1"
+                },
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/Task/",
+                    "body" : {
+                        "Subject" : "Learning Resources",
+                        "Priority" : "Normal",
+                        "WhoId": "@{ref_id_contact.id}"
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_task_2"
+                },
+                {
+                    "url" : "/services/data/v{{version}}/sobjects/Case/",
+                    "body" : {
+                        "Subject" : "Class Survey",
+                        "Priority" : "Low",
+                        "Status": "New",
+                        "ContactId": "@{ref_id_contact.id}"
+                    },
+                    "method" : "POST",
+                    "referenceId" : "ref_id_case"
+                }
+            ]
+        }
+    ]
+}

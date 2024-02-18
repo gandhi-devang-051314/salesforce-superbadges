@@ -1,0 +1,80 @@
+{
+    "allOrNone" : false,
+    "collateSubrequests" : false,
+    "compositeRequest": [
+        {
+            "method": "POST",
+            "url": "/services/data/v{{version}}/sobjects/Account",
+            "referenceId": "AccountNew",
+            "body": {
+                "Name": "Maverick"
+            }
+        },
+        {
+            "method": "GET",
+            "referenceId": "AccountInfo",
+            "url": "/services/data/v{{version}}/sobjects/Account/@{AccountNew.id}"
+        },
+        {
+            "method": "POST",
+            "url": "/services/data/v{{version}}/sobjects/Contact",
+            "referenceId": "ContactNew",
+            "body": {
+                "FirstName": "Olivia",
+                "LastName": "Cloudwalker",
+                "AccountId": "@{AccountInfo.Id}"
+            }
+        },
+        {
+            "method": "GET",
+            "referenceId": "ContactInfo",
+            "url": "/services/data/v{{version}}/sobjects/Contact/@{ContactNew.id}"
+        },
+        {
+            "method": "POST",
+            "url": "/services/data/v{{version}}/sobjects/Case",
+            "referenceId": "CaseNew",
+            "body": {
+                "Subject": "Lightning Registration",
+                "Origin": "Web",
+                "Reason": "Installation",
+                "Priority": "High",
+                "Status": "New",
+                "AccountId": "@{AccountInfo.Id}",
+                "ContactId": "@{ContactInfo.Id}"
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/services/data/v{{version}}/sobjects/Opportunity",
+            "referenceId": "OppNew",
+            "body": {
+                "Name": "Range Extenders",
+                "StageName": "Prospecting",
+                "CloseDate": "2024-02-12",
+                "AccountId": "@{AccountInfo.Id}"
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/services/data/v{{version}}/sobjects/Contract",
+            "referenceId": "ContractNew",
+            "body": {
+                "Name": "SkyCheck",
+                "StartDate": "2024-02-12",
+                "ContractTerm": "12",
+                "AccountId": "@{AccountInfo.Id}",
+                "CustomerSignedId": "@{ContactInfo.Id}",
+                "Status": "Draft"
+            }
+        },
+        {
+            "method": "PATCH",
+            "url": "/services/data/v{{version}}/sobjects/Contract/@{ContractNew.id}",
+            "referenceId": "ContractUpdate",
+            "body": {
+                "Status": "Activated"
+            }
+        }
+    ]
+}

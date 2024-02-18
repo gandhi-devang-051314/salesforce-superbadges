@@ -1,0 +1,28 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 12-15-2023
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+    <lightning-card title="Delivery Status">
+        <lightning-progress-indicator type="base" current-step={statusValue}>
+            <lightning-progress-step label="Shipped" value="Shipped">
+            </lightning-progress-step>
+            <lightning-progress-step label="Installed" value="Installed">
+            </lightning-progress-step>
+            <lightning-progress-step label="Registered" value="Registered">
+            </lightning-progress-step>
+            <lightning-progress-step label="Obsolete" value="Obsolete">
+            </lightning-progress-step>
+            <lightning-progress-step label="Purchased" value="Purchased">
+            </lightning-progress-step>
+            <lightning-progress-step label="Lost" value="Lost">
+            </lightning-progress-step>
+            <lightning-progress-step label="Disconnected" value="Disconnected">
+            </lightning-progress-step>
+        </lightning-progress-indicator>
+    </lightning-card>
+    
+</template>
